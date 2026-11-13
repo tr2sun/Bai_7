@@ -5,6 +5,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -19,6 +22,7 @@ jobs:
           checkstyle_config: google_checks.xml
           reporter: github-pr-review
           level: error
+          fail_level: warning
 
       - run: mvn package # Chạy lệnh build
       - name: Upload JAR
