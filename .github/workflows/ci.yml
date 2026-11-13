@@ -5,7 +5,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3 # Lấy code về
 
@@ -13,6 +15,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Checkstyle Inline Reviewdog
+        uses: dbelyaev/action-checkstyle@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          checkstyle_config: google_checks.xml
+          reporter: github-pr-review
+          level: error
+          filter_mode: added
+          fail_level: warning
 
       - run: mvn package # Chạy lệnh build
       - name: Upload JAR
