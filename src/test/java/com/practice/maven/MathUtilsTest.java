@@ -3,7 +3,7 @@ package com.practice.maven;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//test
+
 class MathUtilsTest {
     @Test
     void addsTwoNumbers() {
